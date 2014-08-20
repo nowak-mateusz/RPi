@@ -22,12 +22,14 @@ class Button:
       self.fg = None # Foreground Icon name
       self.callback = None # Callback function
       self.value = None # Value passed to callback
-      for key, value in kwargs.iteritems():
+		self.text - None		
+		for key, value in kwargs.iteritems():
          if key == 'color': self.color = value
          elif key == 'bg' : self.bg = value
          elif key == 'fg' : self.fg = value
          elif key == 'cb' : self.callback = value
          elif key == 'value': self.value = value
+			elif key == 'text' : self.text = value
 
    def selected(self, pos):
       x1 = self.rect[0]
@@ -53,6 +55,17 @@ class Button:
          screen.blit(self.iconFg.bitmap,
             (self.rect[0]+(self.rect[2]-self.iconFg.bitmap.get_width())/2,
              self.rect[1]+(self.rect[3]-self.iconFg.bitmap.get_height())/2))
+		if self.text:
+			if self.text:
+				myfont = pygame.font.SysFont("Arial", 30)
+				label = myfont.render(self.text , 1, (255,255,255))
+				label_coordinates = label.get_rect()
+				label_width = tuple(label_coordinates)[2]
+				label_hight = tuple(label_coordinates)[3]
+				x = self.rect[0] + (self.rect[2] - label_width - 1)/2
+				y = self.rect[1] + (self.rect[3] - label_hight - 1)/2
+				screen.blit(label, (x, y))
+
 
    def setBg(self, name):
       if name is None:
