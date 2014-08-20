@@ -6,6 +6,14 @@ from pygame.locals import *
 from displayscreen.clock import *
 from displayscreen.button import *            
 
+#for raspberryPiTFT
+os.putenv('SDL_VIDEODRIVER', 'fbcon')
+os.putenv('SDL_FBDEV' , '/dev/fb1')
+os.putenv('SDL_MOUSEDRV' , 'TSLIB')
+os.putenv('SDL_MOUSEDEV' , '/dev/input/touchscreen')
+
+
+
 def viewCallback(n): # Viewfinder buttons
    global screenMode
    screenMode = n
@@ -14,9 +22,9 @@ screenMode = 0
       
 buttons = [
    # Screen 0 
-   [Button((130,180, 60, 60), color=[255,0,0], cb=viewCallback, value=1)],
+   [Button((130,180, 80, 60), color=[255,0,0], text="GO", cb=viewCallback, value=1)],
    # Screen 1 
-   [Button((130,180, 60, 60), color=[0,255,0], cb=viewCallback, value=0)]
+   [Button((130,180, 80, 60), color=[0,255,0], text="BACK",cb=viewCallback, value=0)]
 ]
 
 def main():
