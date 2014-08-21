@@ -2,33 +2,30 @@ import sys
 import os
 import pygame
 import threading
-from pygame.locals import *
-from displayscreen.clock import *
-from displayscreen.button import *            
+from pgu import gui
+from gui.clock import *
 
-#for raspberryPiTFT
-os.putenv('SDL_VIDEODRIVER', 'fbcon')
-os.putenv('SDL_FBDEV' , '/dev/fb1')
-os.putenv('SDL_MOUSEDRV' , 'TSLIB')
-os.putenv('SDL_MOUSEDEV' , '/dev/input/touchscreen')
-
+#for raspberry PiTFT
+#os.putenv('SDL_VIDEODRIVER', 'fbcon')
+#os.putenv('SDL_FBDEV' , '/dev/fb1')
+#os.putenv('SDL_MOUSEDRV' , 'TSLIB')
+#os.putenv('SDL_MOUSEDEV' , '/dev/input/touchscreen')
 
 
-def viewCallback(n): # Viewfinder buttons
-   global screenMode
-   screenMode = n
 
-screenMode = 0 
-      
-buttons = [
-   # Screen 0 
-   [Button((130,180, 80, 60), color=[255,0,0], text="GO", cb=viewCallback, value=1)],
-   # Screen 1 
-   [Button((130,180, 80, 60), color=[0,255,0], text="BACK",cb=viewCallback, value=0)]
-]
 
 def main():
+  
+   app = gui.Desktop()
+   app.connect(gui.QUIT,app.quit,None)
    
+   main = gui.Container(width=320, height=240)
+   main.add(Clock(width=320, height=240),0,0)
+   main.add(gui.Button("test"),130,180)
+
+   app.run(main)   
+
+   '''
    print os.name
    size = width, height = 320, 240
    
@@ -67,7 +64,7 @@ def main():
          
          
       pygame.display.update()  
-     
+      '''
         
 if __name__ == '__main__':
    main()
