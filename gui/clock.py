@@ -51,9 +51,17 @@ class Clock(gui.Widget):
       return [pygame.Rect(0,0,self.rect.w,self.rect.h)]
 
    def event(self,e):
-      # Handle the pygame.Event
-      return
+      if e.type == gui.ENTER: self.repaint()
+      elif e.type == gui.EXIT: self.repaint()
+      elif e.type == gui.FOCUS: self.repaint()
+      elif e.type == gui.BLUR: self.repaint()
+      elif e.type == gui.MOUSEBUTTONDOWN: self.repaint()
+      elif e.type == gui.MOUSEBUTTONUP: self.repaint()
+      elif e.type == gui.CLICK: self.click()
 
+   def click(self):
+      pass
+   
    def resize(self,width=None,height=None):
       # Return the width and height of this widget
       return 320,240

@@ -2,8 +2,9 @@ import sys
 import os
 import pygame
 import threading
+import gui as mygui
 from pgu import gui
-from gui.clock import *
+#from gui.clock import *
 
 #for raspberry PiTFT
 #os.putenv('SDL_VIDEODRIVER', 'fbcon')
@@ -11,11 +12,59 @@ from gui.clock import *
 #os.putenv('SDL_MOUSEDRV' , 'TSLIB')
 #os.putenv('SDL_MOUSEDEV' , '/dev/input/touchscreen')
 
+mode = 0
+click = False
 
 
+def onClick(value):
+   global mode, click
+   mode = value
+   click = True
+   print 'Click '+ str(value)     
 
 def main():
-  
+   global mode, click
+   director = mygui.Director()
+   director.builder = mygui.BuilderMainPage(onClick)
+   director.construct_gui()
+ 
+   app = gui.Desktop()
+   app.connect(gui.QUIT,app.quit,None)
+   app.connect(gui.QUIT,app.quit,None)
+   app.init(director.get_gui())
+   app.update()
+
+
+   done = False
+   
+   while not done:
+      # Process events
+      for ev in pygame.event.get():
+          if (ev.type == pygame.QUIT or 
+              ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE):
+              done = True
+          else:
+              # Pass the event off to pgu
+              app.event(ev)
+	
+      # Give pgu a chance to update the displa
+      if mode == 0 and click:
+         director.builder = mygui.BuilderMainPage()
+         director.construct_gui()
+         app.init(director.get_gui())
+         click = False
+      elif mode == 1 and click:
+         director.builder = mygui.BuilderTempPage(onClick)
+         director.construct_gui()
+         app.init(director.get_gui())
+         click = False
+         
+      app.paint()
+      pygame.display.update()
+      pygame.time.wait(10)
+   
+      
+   '''
    app = gui.Desktop()
    app.connect(gui.QUIT,app.quit,None)
    
@@ -25,7 +74,7 @@ def main():
 
    app.run(main)   
 
-   '''
+ 
    print os.name
    size = width, height = 320, 240
    

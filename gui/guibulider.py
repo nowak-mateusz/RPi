@@ -2,6 +2,10 @@ import pygame
 from clock import *
 from pgu import gui, timer
 
+def deflautOnClik(value):
+   print "Not click function"
+   pass
+
 # Director
 class Director(object):
    
@@ -24,52 +28,38 @@ class Builder(object):
    def new_gui(self):
       self.page = Page()
       
-# Main Page Bulider  - clock and button   
+# Main Page Bulider  - clock   
 class BuilderMainPage(Builder):
+
+   def __init__(self,onClick=None):
+      if (not onClick):
+          self.onClick = deflautOnClik
+      else:
+         self.onClick = onClick
    
    def build_gui(self):
-      main = gui.Container(width=320, height=240)
-      main.add(Clock(width=320, height=240),0,0)
-      self.page.tb = gui.Table()
-      self.page.tb.tr()
-      self.page.tb.td(main)
-      self.page.tb.tr()
-      self.page.tb.td(gui.Button('test'))
+      cl = Clock(width=320, height=240)
+      cl.connect(gui.CLICK,self.onClick,1)
+      self.page.tr()
+      self.page.td(cl)
 
+# Temp page
+class BuilderTempPage(Builder):
+   
+   def __init__(self,onClick=None):
+      if (not onClick):
+          self.onClick = deflautOnClik
+      else:
+         self.onClick = onClick
+   
+   def build_gui(self):
+      btn = gui.Button('back')
+      btn.connect(gui.CLICK,self.onClick,0)
+      self.page.tr()
+      self.page.td(btn)
 
 # Product
-class Page(gui.Desktop):
+class Page(gui.Table):
 
    def __init__(self):
-      gui.Desktop.__init__(self)
-      self.tb = None
-      
-   def ini(self,disp=None):
-      self.init(self.tb, disp)
-      
-      
-if __name__ == "__main__":
-   director = Director()
-   director.builder = BuilderMainPage()
-   director.construct_gui()
-   app = director.get_gui()
-   app.ini()
-   app.update()
-   done = False
-   
-   while not done:
-      # Process events
-      for ev in pygame.event.get():
-          if (ev.type == pygame.QUIT or 
-              ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE):
-              done = True
-          else:
-              # Pass the event off to pgu
-              app.event(ev)
-
-      # Give pgu a chance to update the display
-      app.paint()
-      pygame.display.update()
-      pygame.time.wait(10)
-   
-      
+      gui.Table.__init__(self)
