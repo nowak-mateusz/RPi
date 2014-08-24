@@ -38,7 +38,7 @@ class BuilderMainPage(Builder):
          self.onClick = onClick
    
    def build_gui(self):
-      cl = Clock(width=320, height=240)
+      cl = Clock()
       cl.connect(gui.CLICK,self.onClick,1)
       self.page.tr()
       self.page.td(cl)
@@ -63,3 +63,6 @@ class Page(gui.Table):
 
    def __init__(self):
       gui.Table.__init__(self)
+      self.width=320
+      self.height=240
+

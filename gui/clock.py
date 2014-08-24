@@ -16,11 +16,11 @@ class Clock(gui.Widget):
       self.surface = pygame.Surface((694,466))
    
    def paint(self,s):
-      self.surface.fill([0,0,0])
+      pygame.transform.scale(s,(694,466),self.surface)
       mytime = strftime("%H:%M")
       mysecs = strftime("%S")
-      clocklabel = self.myfont.render(mytime, 1, [255,255,255])
-      secondlabel = self.myfontsmall.render(mysecs, 1, [255,255,255])
+      clocklabel = self.myfont.render(mytime, 1, [0,0,0])
+      secondlabel = self.myfontsmall.render(mysecs, 1, [0,0,0])
       textpos = clocklabel.get_rect()
       textpos.centerx = self.surface.get_rect().centerx - 70
       textpos.centery = self.surface.get_rect().centery
@@ -33,21 +33,6 @@ class Clock(gui.Widget):
       return
 
    def update(self,s):
-      self.surface.fill([0,0,0])
-      mytime = strftime("%H:%M")
-      mysecs = strftime("%S")
-      clocklabel = self.myfont.render(mytime, 1, [255,255,255])
-      secondlabel = self.myfontsmall.render(mysecs, 1, [255,255,255])
-      textpos = clocklabel.get_rect()
-      textpos.centerx = self.surface.get_rect().centerx - 70
-      textpos.centery = self.surface.get_rect().centery
-      secpos = [ textpos[0] + textpos[2] + 10, textpos[1] + 70 ]
-      self.surface.blit(secondlabel, secpos)
-      self.surface.blit(clocklabel, textpos)
-      #print mytime + ":" + mysecs
-      # Scale our surface to the required screensize before sending back
-      scaled = pygame.transform.scale(self.surface,(self.rect.w,self.rect.h))
-      s.blit(scaled,(0,0))
       return [pygame.Rect(0,0,self.rect.w,self.rect.h)]
 
    def event(self,e):

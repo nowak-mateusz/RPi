@@ -49,7 +49,7 @@ def main():
 	
       # Give pgu a chance to update the displa
       if mode == 0 and click:
-         director.builder = mygui.BuilderMainPage()
+         director.builder = mygui.BuilderMainPage(onClick)
          director.construct_gui()
          app.init(director.get_gui())
          click = False
