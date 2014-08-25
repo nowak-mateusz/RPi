@@ -40,6 +40,7 @@ class BuilderMainPage(Builder):
    def build_gui(self):
       cl = Clock()
       cl.connect(gui.CLICK,self.onClick,1)
+      cl.set_font_size(90)
       self.page.tr()
       self.page.td(cl)
 
@@ -53,7 +54,7 @@ class BuilderTempPage(Builder):
          self.onClick = onClick
    
    def build_gui(self):
-      btn = gui.Button('back')
+      btn = gui.Button('')
       btn.connect(gui.CLICK,self.onClick,0)
       self.page.tr()
       self.page.td(btn)

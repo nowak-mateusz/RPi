@@ -25,13 +25,22 @@ def onClick(value):
 def main():
    global mode, click
    director = mygui.Director()
-   director.builder = mygui.BuilderMainPage(onClick)
+   director.builder = mygui.BuilderTempPage(onClick)
    director.construct_gui()
  
    app = gui.Desktop()
    app.connect(gui.QUIT,app.quit,None)
    app.connect(gui.QUIT,app.quit,None)
-   app.init(director.get_gui())
+   
+   size = width, height = 320, 240
+   
+   #init
+   pygame.init()
+   #pygame.mouse.set_visible(0)
+   screen = pygame.display.set_mode(size)
+   
+   
+   app.init(director.get_gui(),screen)
    app.update()
 
 
