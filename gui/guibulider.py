@@ -1,5 +1,6 @@
 import pygame
 from clock import *
+from temp import *
 from pgu import gui, timer
 
 def deflautOnClik(value):
@@ -54,8 +55,11 @@ class BuilderTempPage(Builder):
          self.onClick = onClick
    
    def build_gui(self):
-      btn = gui.Button('')
+      temp = Temperature()
+      btn = gui.Button('back')
       btn.connect(gui.CLICK,self.onClick,0)
+      self.page.tr()
+      self.page.td(temp)
       self.page.tr()
       self.page.td(btn)
 
