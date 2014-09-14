@@ -3,13 +3,14 @@ import os
 import pygame
 from time import strftime
 from pgu import gui
+import global_var as g
 
 class Clock(gui.Widget):
 
    def __init__(self,**params):
       params.setdefault('cls','clock')
       gui.Widget.__init__(self,**params)
-      self.clockfont = os.path.join( os.path.dirname(sys.modules[self.__class__.__module__].__file__),"resources", "SFDigitalReadout-Medium.ttf")
+      self.clockfont = g.digitalFont 
       self.style.check("font")
       self.font = self.style.font
       self.style.width, self.style.height = self.font.size('00:00:00')
