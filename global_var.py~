@@ -1,0 +1,20 @@
+import os
+import pygame
+from pygame.locals import *
+
+#pygame.init()
+
+dataPath = os.path.join(os.getcwd(),'data')
+
+SCREEN_WIDTH = 320
+SCREEN_HEIGHT = 240 
+
+screenSurface = None
+
+digitalFont = dataPath + '/fonts/SFDigitalReadout-Medium.ttf'
+
+mode = 0
+click = True 
+
+I2C_port = 0x60
+DAC_value = 0
