@@ -310,7 +310,7 @@ class BuilderKeyboardPage(Builder):
 
     def keyCallback(self, value):
         if int(value) < 10 :
-            print str(value)
+            #print str(value)
             g.key_val = g.key_val + str(value)
             self.lbl.set_text(g.key_val)
         elif int(value) == 10 : #dot

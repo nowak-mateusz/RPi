@@ -32,7 +32,7 @@ def main():
    #init
    g.screenSurface = pygame.display.set_mode((g.SCREEN_WIDTH, g.SCREEN_HEIGHT))
 
-   #pygame.mouse.set_visible(0)
+   pygame.mouse.set_visible(0)
 
    app.init(director.get_gui(), g.screenSurface)
    done = False
