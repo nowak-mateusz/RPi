@@ -1,18 +1,21 @@
 import sys
 import os
+import platform
 import pygame
 from pygame.locals import *
 from pgu import gui
 #import threading
 import global_var as g
 from gui.guibulider import *
-from Adafruit.Adafruit_MCP4725 import MCP4725
+if platform.machine() == 'armv6l':
+   from Adafruit.Adafruit_MCP4725 import MCP4725
 
 #for raspberry PiTFT
-os.putenv('SDL_VIDEODRIVER', 'fbcon')
-os.putenv('SDL_FBDEV' , '/dev/fb1')
-os.putenv('SDL_MOUSEDRV' , 'TSLIB')
-os.putenv('SDL_MOUSEDEV' , '/dev/input/touchscreen')
+if platform.machine() == 'armv6l':
+   os.putenv('SDL_VIDEODRIVER', 'fbcon')
+   os.putenv('SDL_FBDEV' , '/dev/fb1')
+   os.putenv('SDL_MOUSEDRV' , 'TSLIB')
+   os.putenv('SDL_MOUSEDEV' , '/dev/input/touchscreen')
 
 
 def main():
@@ -32,7 +35,8 @@ def main():
    #init
    g.screenSurface = pygame.display.set_mode((g.SCREEN_WIDTH, g.SCREEN_HEIGHT))
 
-   pygame.mouse.set_visible(0)
+   if platform.machine() == 'armv6l':
+      pygame.mouse.set_visible(0)
 
    app.init(director.get_gui(), g.screenSurface)
    done = False

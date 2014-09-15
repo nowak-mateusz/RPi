@@ -1,4 +1,5 @@
 import pygame
+import platform
 from pygame.locals import *
 from pgu import gui
 
@@ -6,7 +7,8 @@ from clock import *
 from temp import *
 
 import global_var as g
-from Adafruit.Adafruit_MCP4725 import MCP4725
+if platform.machine() == 'armv6l':
+   from Adafruit.Adafruit_MCP4725 import MCP4725
 
 # Director
 class Director(object):
@@ -283,10 +285,20 @@ class BuilderKeyboardPage(Builder):
 
         self.lbl = gui.Label()
         self.lbl.set_text(g.key_val)
+        self.lbl_prefix = gui.Label()
+        if g.keymode == 0:
+           self.lbl_prefix.set_text('SP:')
+        elif g.keymode == 1:
+           self.lbl_prefix.set_text('Kp:')
+        elif g.keymode == 2:
+           self.lbl_prefix.set_text('Ti:')
+        elif g.keymode == 3:
+           self.lbl_prefix.set_text('Td:')
 
 
         self.page.tr()
-        self.page.td(self.lbl,height=35,colspan=4)
+        self.page.td(self.lbl_prefix)
+        self.page.td(self.lbl,height=35,colspan=3)
         self.page.tr()
         self.page.td(self.btn_7,width=60,height=45)
         self.page.td(self.btn_8,width=60,height=45)
