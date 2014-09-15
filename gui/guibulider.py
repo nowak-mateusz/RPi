@@ -190,15 +190,17 @@ class BuilderPIDSettingsPage(Builder):
         self.btn_Ti_change = gui.Button('Change',height=30)
         self.btn_Td_change = gui.Button('Change',height=30)
 
-        self.btn_save = gui.Button('Save',height=30)
-        self.btn_cancel = gui.Button('Cancel',height=30)
+        #self.btn_save = gui.Button('Save',height=30)
+        #self.btn_cancel = gui.Button('Cancel',height=30)
+        self.btn_ok = gui.Button('OK',height=40)
+
         self.btn_SP_change.connect(gui.CLICK,self.btn_change_click,0)
         self.btn_Kp_change.connect(gui.CLICK,self.btn_change_click,1)
         self.btn_Ti_change.connect(gui.CLICK,self.btn_change_click,2)
         self.btn_Td_change.connect(gui.CLICK,self.btn_change_click,3)
 
-
-        self.btn_cancel.connect(gui.CLICK,self.btn_cancel_click,3)
+        #self.btn_cancel.connect(gui.CLICK,self.btn_cancel_click,3)
+        self.btn_ok.connect(gui.CLICK,self.btn_ok_click,3)
 
         self.page.tr()
         self.page.td(self.lbl_title,colspan=2)
@@ -207,18 +209,23 @@ class BuilderPIDSettingsPage(Builder):
         self.page.td(self.btn_SP_change,height=50,width=100)
         self.page.tr()
         self.page.td(self.lbl_Kp)
-        self.page.td(self.btn_Kp_change,height=30)
+        self.page.td(self.btn_Kp_change,height=35)
         self.page.tr()
         self.page.td(self.lbl_Ti)
-        self.page.td(self.btn_Ti_change,height=30)
+        self.page.td(self.btn_Ti_change,height=35)
         self.page.tr()
         self.page.td(self.lbl_Td)
-        self.page.td(self.btn_Td_change,height=30)
+        self.page.td(self.btn_Td_change,height=35)
         self.page.tr()
-        self.page.td(self.btn_save)
-        self.page.td(self.btn_cancel,height=50)
+        #self.page.td(self.btn_save)
+        #self.page.td(self.btn_cancel,height=50)
+        self.page.td(self.btn_ok,colspan=2,height=50)
 
-    def btn_cancel_click(self,value):
+    #def btn_cancel_click(self,value):
+    #   g.mode = value
+    #   g.click = True
+
+    def btn_ok_click(self,value):
        g.mode = value
        g.click = True
 
@@ -234,7 +241,7 @@ class BuilderPIDSettingsPage(Builder):
             g.key_val = str(g.PID_Ti)
         elif g.keymode == 3:
             g.key_val = str(g.PID_Td)
- 
+
 
 class BuilderKeyboardPage(Builder):
 
@@ -252,9 +259,10 @@ class BuilderKeyboardPage(Builder):
         self.btn_0 = gui.Button('0',width=40,height=40)
         self.btn_dot = gui.Button('.',width=40,height=40)
 
-        self.btn_ok = gui.Button('OK',width=40,height=40)
-        self.btn_cancel = gui.Button('Cancel',height=40)
-        self.btn_del = gui.Button('DEL',height=40)
+        self.btn_clear = gui.Button('Clear',width=50,height=40)
+        self.btn_del = gui.Button('DEL',width=50,height=40)
+        self.btn_cancel = gui.Button('Cancel',width=50,height=40)
+        self.btn_ok = gui.Button('OK',width=50,height=40)
 
         self.btn_1.connect(gui.CLICK,self.keyCallback,1)
         self.btn_2.connect(gui.CLICK,self.keyCallback,2)
@@ -267,7 +275,8 @@ class BuilderKeyboardPage(Builder):
         self.btn_9.connect(gui.CLICK,self.keyCallback,9)
         self.btn_0.connect(gui.CLICK,self.keyCallback,0)
 
-        self.btn_dot.connect(gui.CLICK,self.keyCallback,11)
+        self.btn_dot.connect(gui.CLICK,self.keyCallback,10)
+        self.btn_clear.connect(gui.CLICK,self.keyCallback,11)
         self.btn_del.connect(gui.CLICK,self.keyCallback,12)
         self.btn_cancel.connect(gui.CLICK,self.keyCallback,13)
         self.btn_ok.connect(gui.CLICK,self.keyCallback,14)
@@ -277,26 +286,26 @@ class BuilderKeyboardPage(Builder):
 
 
         self.page.tr()
-        self.page.td(self.lbl,colspan=4)
+        self.page.td(self.lbl,height=35,colspan=4)
         self.page.tr()
-        self.page.td(self.btn_7,width=50,height=50)
-        self.page.td(self.btn_8,width=50,height=50)
-        self.page.td(self.btn_9,width=50,height=50)
-        self.page.td(gui.Button(''))
+        self.page.td(self.btn_7,width=60,height=45)
+        self.page.td(self.btn_8,width=60,height=45)
+        self.page.td(self.btn_9,width=60,height=45)
+        self.page.td(self.btn_clear)
         self.page.tr()
-        self.page.td(self.btn_4,width=50,height=50)
-        self.page.td(self.btn_5,width=50,height=50)
-        self.page.td(self.btn_6,width=50,height=50)
+        self.page.td(self.btn_4,width=60,height=45)
+        self.page.td(self.btn_5,width=60,height=45)
+        self.page.td(self.btn_6,width=60,height=45)
         self.page.td(self.btn_del)
         self.page.tr()
-        self.page.td(self.btn_1,width=50,height=50)
-        self.page.td(self.btn_2,width=50,height=50)
-        self.page.td(self.btn_3,width=50,height=50)
+        self.page.td(self.btn_1,width=60,height=45)
+        self.page.td(self.btn_2,width=60,height=45)
+        self.page.td(self.btn_3,width=60,height=45)
         self.page.td(self.btn_cancel)
         self.page.tr()
-        self.page.td(self.btn_0,width=50,height=50)
-        self.page.td(self.btn_dot,width=50,height=50)
-        self.page.td(gui.Button(''),width=50,height=50)
+        self.page.td(self.btn_0,width=50,height=45)
+        self.page.td(self.btn_dot,width=50,height=45)
+        self.page.td(gui.Spacer(50,45))
         self.page.td(self.btn_ok)
 
     def keyCallback(self, value):
@@ -304,8 +313,11 @@ class BuilderKeyboardPage(Builder):
             print str(value)
             g.key_val = g.key_val + str(value)
             self.lbl.set_text(g.key_val)
-        elif int(value) == 11 : #dot
+        elif int(value) == 10 : #dot
             g.key_val = g.key_val + '.'
+            self.lbl.set_text(g.key_val)
+        elif int(value) == 11 : #Clear
+            g.key_val = ''
             self.lbl.set_text(g.key_val)
         elif int(value) == 12 : #DEL
             g.key_val = g.key_val[:-1]
@@ -314,6 +326,9 @@ class BuilderKeyboardPage(Builder):
             g.mode = 10
             g.click = True
         elif int(value) == 14 : #OK
+            if g.key_val == '':
+                g.key_val = '0'
+
             if g.keymode == 0:
                 g.PID_SP = float(g.key_val)
             elif g.keymode == 1:

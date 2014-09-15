@@ -27,7 +27,7 @@ def main():
    #c.tr()
    #c.td(gui.Label("Gui Widgets"))
 
-   #app.run(c) 
+   #app.run(c)
 
    #init
    g.screenSurface = pygame.display.set_mode((g.SCREEN_WIDTH, g.SCREEN_HEIGHT))
@@ -41,7 +41,7 @@ def main():
    while not done:
       # Process events
       for ev in pygame.event.get():
-          if (ev.type == pygame.QUIT or 
+          if (ev.type == pygame.QUIT or
               ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE):
               done = True
           else:
@@ -65,18 +65,20 @@ def main():
          app.init(director.get_gui())
          g.click = False
       elif g.mode == 3 and g.click:
-	     director.builder = BuilderPIDMainPage()
-	     director.construct_gui()
-	     app.init(director.get_gui())
-	     g.click = False
+	 director.builder = BuilderPIDMainPage()
+	 director.construct_gui()
+	 app.init(director.get_gui())
+	 g.click = False
       elif g.mode == 10 and g.click:
          director.builder = BuilderPIDSettingsPage()
          director.construct_gui()
          app.init(director.get_gui())
+         g.click = False
       elif g.mode == 11 and g.click:
          director.builder = BuilderKeyboardPage()
          director.construct_gui()
          app.init(director.get_gui())
+         g.click = False
 
       app.repaintall()
       rects = app.update(g.screenSurface)
