@@ -9,6 +9,7 @@ import global_var as g
 from gui.guibulider import *
 if platform.machine() == 'armv6l':
    from Adafruit.Adafruit_MCP4725 import MCP4725
+   from ds18b20 import DS18B20
 
 #for raspberry PiTFT
 if platform.machine() == 'armv6l':
@@ -19,6 +20,11 @@ if platform.machine() == 'armv6l':
 
 
 def main():
+
+   g.TEMP_SENSOR = DS18B20()
+   g.DAC = MCP4725(g.I2C_port)
+
+
    director = Director()
    director.builder = BuilderWelcomPage()
    director.construct_gui()
