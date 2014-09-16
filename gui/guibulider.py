@@ -7,8 +7,8 @@ from clock import *
 from temp import *
 
 import global_var as g
-if platform.machine() == 'armv6l':
-   from Adafruit.Adafruit_MCP4725 import MCP4725
+#if platform.machine() == 'armv6l':
+#   from Adafruit.Adafruit_MCP4725 import MCP4725
 
 # Director
 class Director(object):
@@ -104,8 +104,6 @@ class BuilderSliderPage(Builder):
       self.page.td(btn_b)
       self.page.td(btn_n,colspan=2)
 
-      self.dac = MCP4725(g.I2C_port)
-
    def onClick(self,value):
       g.mode = value
       g.click = True
@@ -113,7 +111,7 @@ class BuilderSliderPage(Builder):
    def sliderFunction(self,value):
       g.DAC_value = value.value;
       self.lbl.set_text('Out Value: ' + "%0.3f" % (value.value * 4.56 / 4095) + ' V')
-      self.dac.setVoltage(value.value)
+      g.DAC.setVoltage(value.value)
       #print str(value.value*100/4095)
 
 class BuilderPIDMainPage(Builder):

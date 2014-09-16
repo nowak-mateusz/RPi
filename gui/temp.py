@@ -18,17 +18,15 @@ class Temperature(gui.Widget):
       self.font = self.style.font
       self.style.width, self.style.height = self.font.size('00.00 C')
 
-      self.sensor = DS18B20()
-
    def paint(self,s):
-      s.blit(self.font.render( "%0.2f C" % (self.sensor.get_temperature()) , 1, self.style.color),(0,0))
-   
+      s.blit(self.font.render( "%0.2f C" % (g.TEMP_SENSOR.get_temperature()) , 1, self.style.color),(0,0))
+
    def set_font(self, font):
       """Set the font used to render this label."""
       self.font = font
       # Signal to the application that we need a resize
       self.chsize()
-      
+
    def set_font_size(self, font_size):
       self.font = pygame.font.Font(self.myfont, font_size)
       self.chsize()
