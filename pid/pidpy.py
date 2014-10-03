@@ -11,7 +11,7 @@ class pidpy(object):
     
     yk = 0.0 # output
     
-    GMA_HLIM = 100.0
+    GMA_HLIM = 4095.0
     GMA_LLIM = 0.0
     
     def __init__(self, ts, kc, ti, td):

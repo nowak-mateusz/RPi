@@ -59,17 +59,28 @@ class BuilderMainPage(Builder):
 class BuilderTempPage(Builder):
 
    def build_gui(self):
-      temp = Temperature()
-      temp.set_font_size(90)
-      btn_n = gui.Button('next',height=50)
-      btn_n.connect(gui.CLICK,self.onClick,2)
-      btn_b = gui.Button('back',height=50)
-      btn_b.connect(gui.CLICK,self.onClick,0)
-      self.page.tr()
-      self.page.td(temp,colspan=2)
-      self.page.tr()
-      self.page.td(btn_b)
-      self.page.td(btn_n,colspan=2)
+       if g.TEMP_SENSOR == None :
+           btn_n = gui.Button('next',height=50)
+           btn_n.connect(gui.CLICK,self.onClick,2)
+           btn_b = gui.Button('back',height=50)
+           btn_b.connect(gui.CLICK,self.onClick,0)
+           self.page.tr()
+           self.page.td(gui.Label('Not found temperature sensor.'),colspan=2)
+           self.page.tr()
+           self.page.td(btn_b)
+           self.page.td(btn_n,colspan=2)
+       else:
+           temp = Temperature()
+           temp.set_font_size(90)
+           btn_n = gui.Button('next',height=50)
+           btn_n.connect(gui.CLICK,self.onClick,2)
+           btn_b = gui.Button('back',height=50)
+           btn_b.connect(gui.CLICK,self.onClick,0)
+           self.page.tr()
+           self.page.td(temp,colspan=2)
+           self.page.tr()
+           self.page.td(btn_b)
+           self.page.td(btn_n,colspan=2)
 
    def onClick(self,value):
       g.mode = value

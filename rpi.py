@@ -10,6 +10,7 @@ from gui.guibulider import *
 if platform.machine() == 'armv6l':
    from Adafruit.Adafruit_MCP4725 import MCP4725
    from ds18b20 import DS18B20
+   from pid import pidpy as PIDController
 
 #for raspberry PiTFT
 if platform.machine() == 'armv6l':
@@ -21,7 +22,11 @@ if platform.machine() == 'armv6l':
 
 def main():
 
-   g.TEMP_SENSOR = DS18B20()
+   try:
+       g.TEMP_SENSOR = DS18B20()
+   except:
+       g.TEMP_SENSOR = None
+       print 'Not found temperature sensor. Is it plugged in?'
    g.DAC = MCP4725(g.I2C_port)
 
 
@@ -89,6 +94,16 @@ def main():
          director.construct_gui()
          app.init(director.get_gui())
          g.click = False
+
+      if g.PID_start:
+         pid = PIDController.pidpy(0.1, g.PID_Kp, g.PID_Ti, g.PID_Td) #init pid
+         if g.TEMP_SENSOR == None:
+             print 'Not found temperature sensor. Is it plugged in?'
+         else:
+             temp = g.TEMP_SENSOR.get_temperature()
+             duty_cycle = pid.calcPID_reg4(temp, g.PID_SP, True)
+             print str(temp) + ' ' + str(duty_cycle)
+
 
       app.repaintall()
       rects = app.update(g.screenSurface)
