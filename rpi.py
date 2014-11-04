@@ -5,8 +5,11 @@ import pygame
 from pygame.locals import *
 from pgu import gui
 #import threading
+import subprocess
 import global_var as g
 from gui.guibulider import *
+from read_temp import *
+import atexit
 if platform.machine() == 'armv6l':
    from Adafruit.Adafruit_MCP4725 import MCP4725
    from ds18b20 import DS18B20
@@ -20,10 +23,17 @@ if platform.machine() == 'armv6l':
    os.putenv('SDL_MOUSEDEV' , '/dev/input/touchscreen')
 
 
+@atexit.register
+def closeAll():
+    g.TEMP_PID.kill()
+
 def main():
 
    try:
+       #os.system("./scripts/get_temp.sh &")
        g.TEMP_SENSOR = DS18B20()
+       g.TEMP_PID = subprocess.Popen('./scripts/get_temp.sh',shell=True)
+       g.TEMP_SENSOR = ReaderTempFromFile(g.TEMP_DATA_FILE)
    except:
        g.TEMP_SENSOR = None
        print 'Not found temperature sensor. Is it plugged in?'
@@ -100,7 +110,7 @@ def main():
          if g.TEMP_SENSOR == None:
              print 'Not found temperature sensor. Is it plugged in?'
          else:
-             temp = g.TEMP_SENSOR.get_temperature()
+             temp = g.TEMP_SENSOR.getAverageTemp(10)
              duty_cycle = pid.calcPID_reg4(temp, g.PID_SP, True)
              print str(temp) + ' ' + str(duty_cycle)
 

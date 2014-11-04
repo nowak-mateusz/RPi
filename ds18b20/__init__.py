@@ -4,7 +4,7 @@ __version__ = "0.01.03"
 
 from os import path, listdir, system
 from glob import glob
-
+from time import sleep
 
 class DS18B20(object):
     """This class represents a temperature sensor of type DS18B20"""
@@ -121,3 +121,18 @@ class DS18B20(object):
         """Load kernel modules needed by the temperature sensor"""
         system("modprobe w1-gpio")
         system("modprobe w1-therm")
+
+    """
+    def get_average_temperatures(self, n, delay=1, unit=DEGREES_C):
+        factor = self._get_unit_factor(unit)
+        temperatures = []
+        for i in range(0, n):
+            sensor_value = self._get_sensor_value()
+            temperatures.append(factor(sensor_value))
+            # sleep(delay / 1000)
+        
+        if len(temperatures) > 0:
+            return float(sum(temperatures))/len(temperatures)    
+        else:
+            return float('nan')
+    """

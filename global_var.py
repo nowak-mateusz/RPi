@@ -16,7 +16,10 @@ digitalFont = '/home/pi/projects/RPi/data/fonts/SFDigitalReadout-Medium.ttf'#dat
 mode = 3
 click = True
 
+TEMP_PID = 0
+TEMP_DATA_FILE = 'temp.dat'
 TEMP_SENSOR = None
+
 
 DAC = None
 I2C_port = 0x60

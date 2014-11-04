@@ -13,13 +13,12 @@ class Temperature(gui.Widget):
       params.setdefault('cls','temperature')
       gui.Widget.__init__(self,**params)
       self.myfont = g.digitalFont
-      print self.myfont
       self.style.check("font")
       self.font = self.style.font
       self.style.width, self.style.height = self.font.size('00.00 C')
 
    def paint(self,s):
-      s.blit(self.font.render( "%0.2f C" % (g.TEMP_SENSOR.get_temperature()) , 1, self.style.color),(0,0))
+       s.blit(self.font.render( "%0.2f C" % (g.TEMP_SENSOR.getAverageTemp(10)) , 1, self.style.color),(0,0))
 
    def set_font(self, font):
       """Set the font used to render this label."""
